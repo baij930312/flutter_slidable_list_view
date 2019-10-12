@@ -87,10 +87,10 @@ class SlideItemState extends State<SlideItem>
 
   @override
   Widget build(BuildContext context) {
-    if (nowSlidingIndex == DEFAULT_SLIDING_INDEX || isSelf()) {
-      return _buildSlidableItem();
-    }
-    return _buildUnSlidableItem();
+    // if (nowSlidingIndex == indexInList || isSelf()) {
+    //   return _buildSlidableItem();
+    // }
+    return _buildSlidableItem();
   }
 
   @override
@@ -242,7 +242,7 @@ class SlideItemState extends State<SlideItem>
         absorbing: true,
       ),
       onPanDown: (d) {
-        CloseNotifyManager().notify();
+        CloseNotifyManager().notify(index: -1);
       },
     );
   }

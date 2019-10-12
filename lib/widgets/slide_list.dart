@@ -55,9 +55,9 @@ class SlideListViewState extends State<SlideListView> {
       slidingIndex,
       child: ListView.separated(
           controller: widget.controller,
-          physics: slidingIndex == DEFAULT_SLIDING_INDEX
-              ? AlwaysScrollableScrollPhysics()
-              : NeverScrollableScrollPhysics(),
+          // physics: slidingIndex == DEFAULT_SLIDING_INDEX
+          //     ? AlwaysScrollableScrollPhysics()
+          //     : NeverScrollableScrollPhysics(),
           itemBuilder: _itemBuilder,
           padding: widget.padding,
           separatorBuilder: _separatorBuilder,
@@ -65,9 +65,16 @@ class SlideListViewState extends State<SlideListView> {
               ? widget.dataList.length + 1
               : widget.dataList.length),
     );
-    return widget.refreshCallback != null
-        ? _buildRefreshContent(content)
-        : content;
+    return NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) {
+          if (notification is ScrollStartNotification) {
+            CloseNotifyManager().notify(index: -1);
+          }
+          return true;
+        },
+        child: widget.refreshCallback != null
+            ? _buildRefreshContent(content)
+            : content);
   }
 
   Widget _buildRefreshContent(Widget content) {
@@ -97,10 +104,12 @@ class SlideListViewState extends State<SlideListView> {
       return content;
     }
     return SlideItem(
+      key: Key(index.toString()),
       actionWidgetDelegate: widget.actionWidgetDelegate,
       content: content,
       indexInList: index,
       slideBeginCallback: (slideIndex) {
+        CloseNotifyManager().notify(index: slideIndex);
         setState(() {
           slidingIndex = slideIndex;
         });

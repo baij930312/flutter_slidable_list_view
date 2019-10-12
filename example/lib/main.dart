@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         child: SlideListView(
+          controller: ScrollController(),
           itemBuilder: (bc, index) {
             return GestureDetector(
               child: Container(

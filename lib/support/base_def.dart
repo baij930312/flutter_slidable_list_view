@@ -45,9 +45,11 @@ class CloseNotifyManager {
 
   List<CloseListener> _listeners = List();
 
-  void notify() {
+  void notify({index = -1}) {
     _listeners?.forEach((it) {
-      it.close(fromSelf: false);
+      if (index != it.indexInList) {
+        it.close(fromSelf: true);
+      }
     });
   }
 
