@@ -51,20 +51,17 @@ class SlideListViewState extends State<SlideListView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = SlidingIndexData(
-      slidingIndex,
-      child: ListView.separated(
-          controller: widget.controller,
-          // physics: slidingIndex == DEFAULT_SLIDING_INDEX
-          //     ? AlwaysScrollableScrollPhysics()
-          //     : NeverScrollableScrollPhysics(),
-          itemBuilder: _itemBuilder,
-          padding: widget.padding,
-          separatorBuilder: _separatorBuilder,
-          itemCount: widget.needLoadMore
-              ? widget.dataList.length + 1
-              : widget.dataList.length),
-    );
+    Widget content = ListView.separated(
+        controller: widget.controller,
+        // physics: slidingIndex == DEFAULT_SLIDING_INDEX
+        //     ? AlwaysScrollableScrollPhysics()
+        //     : NeverScrollableScrollPhysics(),
+        itemBuilder: _itemBuilder,
+        padding: widget.padding,
+        separatorBuilder: _separatorBuilder,
+        itemCount: widget.needLoadMore
+            ? widget.dataList.length + 1
+            : widget.dataList.length);
     return NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
           if (notification is ScrollStartNotification) {
@@ -72,9 +69,10 @@ class SlideListViewState extends State<SlideListView> {
           }
           return true;
         },
-        child: widget.refreshCallback != null
-            ? _buildRefreshContent(content)
-            : content);
+        child: SlidingIndexData(slidingIndex,
+            child: widget.refreshCallback != null
+                ? _buildRefreshContent(content)
+                : content));
   }
 
   Widget _buildRefreshContent(Widget content) {
