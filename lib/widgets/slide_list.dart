@@ -118,9 +118,9 @@ class SlideListViewState extends State<SlideListView> {
         });
       },
       itemRemoveCallback: (removeIndex) {
-        setState(() {
-          widget.dataList.removeAt(removeIndex);
-        });
+        // setState(() {
+        //   widget.dataList.removeAt(removeIndex);
+        // });
       },
       supportElasticity: widget.supportElasticSliding,
       backgroundColor: widget.itemBackgroundColor,
