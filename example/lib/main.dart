@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         child: SlideListView(
+          //添加滚动控制器
           controller: ScrollController(),
           itemBuilder: (bc, index) {
             return GestureDetector(

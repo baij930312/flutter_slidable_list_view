@@ -62,6 +62,7 @@ class SlideListViewState extends State<SlideListView> {
         itemCount: widget.needLoadMore
             ? widget.dataList.length + 1
             : widget.dataList.length);
+    //改变布局层级
     return NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
           if (notification is ScrollStartNotification) {

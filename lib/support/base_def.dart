@@ -46,6 +46,7 @@ class CloseNotifyManager {
   List<CloseListener> _listeners = List();
 
   void notify({index = -1}) {
+    //循环关闭其他打开的item
     _listeners?.forEach((it) {
       if (index != it.indexInList) {
         it.close(fromSelf: true);
